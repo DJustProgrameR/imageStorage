@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./frontend
+    environment:
+      - PORT=8080
+      - API_BASE_URL=http://backend:8000
+    ports:
+      - "8080:8080"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    environment:
+      - PORT=8000
+      - PET_STORAGE_PATH=storage.txt
+    ports:
+      - "8000:8000"
+    restart: unless-stopped

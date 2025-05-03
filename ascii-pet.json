@@ -1,0 +1,115 @@
+{
+  "swagger": "2.0",
+  "host": "localhost:8000",
+  "basePath": "/v1",
+  "info": {
+    "description": "The goal of this task is to implement REST API and SPA to cover the described OpenAPI specification. Any Go library or frontend framework is acceptable. You may use https://editor.swagger.io to preview this spec.",
+    "version": "0.0.1",
+    "title": "Yadro Impulse Test Task",
+    "contact": {
+      "email": "edu@yadro.com",
+      "url": "https://edu.yadro.com/impulse/"
+    }
+  },
+  "paths": {
+    "/pet": {
+      "get": {
+        "tags": [
+          "pet"
+        ],
+        "description": "Get existing pet",
+        "operationId": "GetPet",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "required": [
+                "ascii",
+                "description"
+              ],
+              "properties": {
+                "ascii": {
+                  "description": "Pet photo in ASCII art format",
+                  "type": "string",
+                  "minLength": 1,
+                  "x-nullable": false
+                },
+                "description": {
+                  "description": "Description of pet on the photo",
+                  "type": "string",
+                  "minLength": 1,
+                  "x-nullable": false
+                }
+              },
+              "example": {
+                "ascii": "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣠⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣄⣀⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⠟⠛⠛⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠛⣷⡄⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡇⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡶⠀⠀⠀⠀⠀⠀⠀⢠⡀⠀⠀⢸⣧⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠛⠂⠀⠀⢰⠇⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠃⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠀⣰⣶⣶⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡏⠀⠀⣀⣀⡀⠀⠀\n⢀⣀⣀⣀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⠀⠀⢠⣦⠀⠀⠀⠀⢰⡇⠀⣿⠁⠀⠉⠻⣦⡀⠠⠟⠀⠀⠀⠀⣿⣧⣶⠿⠛⠙⣿⠀⠀\n⣿⡋⠉⠙⠛⠷⣦⣄⠀⠀⣿⡇⠀⠀⠀⠠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠈⠻⣦⣀⣀⣀⣀⣰⣿⠟⠁⠀⠀⠀⣿⠀⠀\n⠸⣷⡀⠀⠀⠀⠈⠛⣷⡄⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠟⠀⠀⢸⣇⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠉⠉⠁⠀⠀⠀⠀⠀⣿⡀⠀\n⠀⠘⢿⣆⠀⠀⠀⠀⠈⢿⣿⡇⠀⠀⠀⠀⠀⠐⠟⠀⠀⠀⠀⡀⠀⢀⣴⡿⠃⠀⠀⠀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⠀⠀⠙⣷⡄\n⠀⠀⠀⠙⢷⣤⡀⠀⠀⠈⢿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢼⠇⠀⣼⡏⠀⠀⠀⠀⣾⣅⣀⣿⠀⠀⠀⠀⠀⠀⠀⣾⣅⢈⣷⠀⠀⠈⣿\n⠀⠀⠀⠀⠀⠙⠿⣦⣀⠀⢸⡇⠀⠀⠀⠀⣰⡄⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠘⠻⠿⠟⠀⠀⠠⣖⢒⡶⠀⠙⠿⠿⠟⠀⠀⠀⣿\n⠀⠀⠀⠀⠀⠀⠀⠈⠛⢷⣾⡇⠀⠀⠀⠀⠉⠀⠀⠀⠀⠀⠀⠀⠀⢸⣧⠀⠀⠀⠀⠀⠀⢠⡄⠀⠀⠀⢈⣏⠀⠀⠀⠀⡀⠀⠀⠀⢀⣿\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣽⡇⠀⠀⠀⠀⠀⠠⡆⠀⠀⠀⢰⡆⠀⠀⢻⣧⡀⠀⠀⠀⠀⠈⠻⠶⣤⡴⠟⠙⠶⣤⡤⠞⠁⠀⠀⢀⣾⠏\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣻⣧⣄⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣙⣿⣶⣤⣄⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣤⣤⣶⠿⠋⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⡟⠉⠉⠛⣿⠛⢻⠿⠿⠿⠿⣿⡿⠿⠛⠛⠛⠛⠛⣿⠛⠉⠙⠛⣿⠛⠛⣿⠟⠛⠛⢻⡏⠉⠉⠉⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣦⣀⣤⡾⠃⠀⣿⣀⣀⣠⣾⠟⠀⠀⠀⠀⠀⠀⠀⢿⣄⣀⣀⣴⠟⠀⠀⣿⠀⠀⢀⣾⠃⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠁⠀⠀⠀⠈⠉⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠁⠀⠀⠀⠙⠷⠶⠟⠃⠀⠀⠀⠀⠀⠀⠀⠀",
+                "description": "The nyan cat"
+              }
+            }
+          },
+          "204": {
+            "description": "No pet uploaded yet"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "pet"
+        ],
+        "description": "Upload new pet",
+        "operationId": "UploadPet",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "parameters": [
+          {
+            "description": "Pet properties",
+            "name": "petProperties",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "ascii",
+                "description"
+              ],
+              "properties": {
+                "ascii": {
+                  "description": "Pet photo in ASCII art format",
+                  "type": "string",
+                  "minLength": 1,
+                  "x-nullable": false
+                },
+                "description": {
+                  "description": "Description of pet on the photo",
+                  "type": "string",
+                  "minLength": 1,
+                  "x-nullable": false
+                }
+              },
+              "example": {
+                "ascii": "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣠⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣄⣀⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⠟⠛⠛⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠛⣷⡄⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡇⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡶⠀⠀⠀⠀⠀⠀⠀⢠⡀⠀⠀⢸⣧⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠛⠂⠀⠀⢰⠇⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠃⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠀⣰⣶⣶⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡏⠀⠀⣀⣀⡀⠀⠀\n⢀⣀⣀⣀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⠀⠀⢠⣦⠀⠀⠀⠀⢰⡇⠀⣿⠁⠀⠉⠻⣦⡀⠠⠟⠀⠀⠀⠀⣿⣧⣶⠿⠛⠙⣿⠀⠀\n⣿⡋⠉⠙⠛⠷⣦⣄⠀⠀⣿⡇⠀⠀⠀⠠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠈⠻⣦⣀⣀⣀⣀⣰⣿⠟⠁⠀⠀⠀⣿⠀⠀\n⠸⣷⡀⠀⠀⠀⠈⠛⣷⡄⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠟⠀⠀⢸⣇⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠉⠉⠁⠀⠀⠀⠀⠀⣿⡀⠀\n⠀⠘⢿⣆⠀⠀⠀⠀⠈⢿⣿⡇⠀⠀⠀⠀⠀⠐⠟⠀⠀⠀⠀⡀⠀⢀⣴⡿⠃⠀⠀⠀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⠀⠀⠙⣷⡄\n⠀⠀⠀⠙⢷⣤⡀⠀⠀⠈⢿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢼⠇⠀⣼⡏⠀⠀⠀⠀⣾⣅⣀⣿⠀⠀⠀⠀⠀⠀⠀⣾⣅⢈⣷⠀⠀⠈⣿\n⠀⠀⠀⠀⠀⠙⠿⣦⣀⠀⢸⡇⠀⠀⠀⠀⣰⡄⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠘⠻⠿⠟⠀⠀⠠⣖⢒⡶⠀⠙⠿⠿⠟⠀⠀⠀⣿\n⠀⠀⠀⠀⠀⠀⠀⠈⠛⢷⣾⡇⠀⠀⠀⠀⠉⠀⠀⠀⠀⠀⠀⠀⠀⢸⣧⠀⠀⠀⠀⠀⠀⢠⡄⠀⠀⠀⢈⣏⠀⠀⠀⠀⡀⠀⠀⠀⢀⣿\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣽⡇⠀⠀⠀⠀⠀⠠⡆⠀⠀⠀⢰⡆⠀⠀⢻⣧⡀⠀⠀⠀⠀⠈⠻⠶⣤⡴⠟⠙⠶⣤⡤⠞⠁⠀⠀⢀⣾⠏\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣻⣧⣄⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣙⣿⣶⣤⣄⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣤⣤⣶⠿⠋⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⡟⠉⠉⠛⣿⠛⢻⠿⠿⠿⠿⣿⡿⠿⠛⠛⠛⠛⠛⣿⠛⠉⠙⠛⣿⠛⠛⣿⠟⠛⠛⢻⡏⠉⠉⠉⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣦⣀⣤⡾⠃⠀⣿⣀⣀⣠⣾⠟⠀⠀⠀⠀⠀⠀⠀⢿⣄⣀⣀⣴⠟⠀⠀⣿⠀⠀⢀⣾⠃⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠁⠀⠀⠀⠈⠉⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠁⠀⠀⠀⠙⠷⠶⠟⠃⠀⠀⠀⠀⠀⠀⠀⠀",
+                "description": "The nyan cat"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

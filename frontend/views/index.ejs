@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <style>
+        .pet-container {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+        }
+        pre {
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+<h1>Сервис питомцев</h1>
+
+<% if (pet) { %>
+    <div class="pet-container">
+        <h2>Current Pet</h2>
+        <pre><%= pet.ascii %></pre>
+        <p><strong>Description:</strong> <%= pet.description %></p>
+    </div>
+<% } %>
+
+<h2>Update Pet</h2>
+<form action="/update-pet" method="POST">
+    <div>
+        <label for="ascii">ASCII изображение:</label><br>
+        <textarea id="ascii" name="ascii" rows="10" cols="50" required></textarea>
+    </div>
+    <div>
+        <label for="description">Описание:</label><br>
+        <input type="text" id="description" name="description" required>
+    </div>
+    <button type="submit">Update Pet</button>
+</form>
+</body>
+</html>
