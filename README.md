@@ -10,8 +10,8 @@ docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -i 
 Создаём конфиг
 backend/server_generation.yaml
 
-Подтягиваем нужную либу
-go get github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen
+Подтягиваем нужную либу (в .backend)
+go get -tool github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@latest
 
 запускаем go генерацию в файле
 backend/generate.go
