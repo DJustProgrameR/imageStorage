@@ -39,8 +39,6 @@ app.get('/', async (req, res) => {
         const rows = countRows(pet);
         const cols = countCols(pet);
 
-        console.error(rows);
-        console.error(cols);
         res.render('index', {
             rows: rows,
             cols: cols,

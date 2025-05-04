@@ -1,11 +1,12 @@
 .gitignore
 .npmignore
-.openapi-generator-ignore
 api.ts
 base.ts
 common.ts
 configuration.ts
 docs/GetPet200Response.md
+docs/GetPet500Response.md
 docs/PetApi.md
+docs/UploadPet400Response.md
 git_push.sh
 index.ts

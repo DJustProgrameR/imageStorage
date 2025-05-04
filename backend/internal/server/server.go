@@ -82,7 +82,7 @@ func (s *RestServer) GetPet(w http.ResponseWriter, _ *http.Request) {
 				return
 			}
 
-			w.WriteHeader(http.StatusBadRequest)
+			w.WriteHeader(http.StatusInternalServerError)
 			err = json.NewEncoder(w).Encode(err)
 
 			if err != nil {

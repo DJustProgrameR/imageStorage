@@ -53,6 +53,29 @@
           },
           "204": {
             "description": "No pet uploaded yet"
+          },
+          "500": {
+            "description": "Internal error",
+            "schema": {
+              "type": "object",
+              "required": [
+                "message"
+              ],
+              "properties": {
+                "message": {
+                  "description": "error message",
+                  "type": "string",
+                  "minLength": 1,
+                  "x-nullable": false
+                }
+              },
+              "example": {
+                "message": "Int err"
+              }
+            }
+          },
+          "503": {
+            "description": "Service not available"
           }
         }
       },
@@ -73,7 +96,27 @@
             "description": "OK"
           },
           "400": {
-            "description": "Bad request"
+            "description": "Bad request",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "description": "error message",
+                  "type": "string",
+                  "minLength": 1,
+                  "x-nullable": true
+                }
+              },
+              "example": {
+                "message": "Invalid input"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal error"
+          },
+          "503": {
+            "description": "Service not available"
           }
         },
         "parameters": [

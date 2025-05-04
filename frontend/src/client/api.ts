@@ -42,6 +42,32 @@ export interface GetPet200Response {
      */
     'description': string;
 }
+/**
+ * 
+ * @export
+ * @interface GetPet500Response
+ */
+export interface GetPet500Response {
+    /**
+     * error message
+     * @type {string}
+     * @memberof GetPet500Response
+     */
+    'message': string;
+}
+/**
+ * 
+ * @export
+ * @interface UploadPet400Response
+ */
+export interface UploadPet400Response {
+    /**
+     * error message
+     * @type {string}
+     * @memberof UploadPet400Response
+     */
+    'message'?: string | null;
+}
 
 /**
  * PetApi - axios parameter creator
