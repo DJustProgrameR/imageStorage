@@ -22,7 +22,7 @@ func (ac AppConfig) GetAppPort() string {
 	return ac.appPort
 }
 
-// GetAppPort returns storage path
+// GetPetStoragePath returns storage path
 func (ac *AppConfig) GetPetStoragePath() string {
 	return ac.petStoragePath
 }

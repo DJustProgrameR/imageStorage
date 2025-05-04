@@ -8,11 +8,14 @@ import (
 	"backend/internal/usecase"
 	"context"
 	"io"
+	"log"
 	"net/http"
+	"time"
 )
 
 // NewApp provides main backend handler
 func NewApp(ctx context.Context, w io.Writer) *App {
+	logger := log.New(w, "ERROR: ", log.LstdFlags)
 	app := &App{}
 
 	appConfig := config.NewAppConfig()
@@ -20,10 +23,10 @@ func NewApp(ctx context.Context, w io.Writer) *App {
 
 	petRepo := repository.NewPetRepository(appConfig)
 
-	putPetUseCase := usecase.NewPutPet(w, petRepo)
-	getPetUseCase := usecase.NewGetPet(petRepo)
+	putPetUseCase := usecase.NewPutPet(logger, petRepo)
+	getPetUseCase := usecase.NewGetPet(logger, petRepo)
 
-	restServer := server.NewRestServer(ctx, w, getPetUseCase, putPetUseCase)
+	restServer := server.NewRestServer(ctx, logger, getPetUseCase, putPetUseCase)
 	serverWrapper := server.Handler(restServer)
 
 	app.handler = serverWrapper
@@ -31,13 +34,23 @@ func NewApp(ctx context.Context, w io.Writer) *App {
 	return app
 }
 
+// App -
 type App struct {
 	port    string
 	handler http.Handler
 }
 
+// Run runs app on port
 func (a *App) Run() error {
-	err := http.ListenAndServe(a.port, a.handler)
+
+	restServer := &http.Server{
+		Addr:         a.port,
+		Handler:      a.handler,
+		ReadTimeout:  5 * time.Second,
+		WriteTimeout: 10 * time.Second,
+	}
+
+	err := restServer.ListenAndServe()
 	if err != nil {
 		return err
 	}

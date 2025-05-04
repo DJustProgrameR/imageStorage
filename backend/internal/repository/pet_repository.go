@@ -15,10 +15,12 @@ const (
 	petPathStorageType string = ".txt"
 )
 
+// Config of repo
 type Config interface {
 	GetPetStoragePath() string
 }
 
+// NewPetRepository inits repo
 func NewPetRepository(config Config) *PetRepository {
 	if config == nil {
 		log.Fatalf("PetRepository config is null")
@@ -38,14 +40,18 @@ type PetRepository struct {
 	createStorageOnce sync.Once
 }
 
-func (r *PetRepository) GetPet(ctx context.Context) (*model.Pet, error) {
+// GetPet gets pet from storage
+func (r *PetRepository) GetPet(ctx context.Context) (pet *model.Pet, err error) {
 	r.createStorageOnce.Do(func() {
-		r.initFile(r.petPath)
+		err = r.initFile(r.petPath)
 	})
+	if err != nil {
+		return
+	}
 	if err := ctx.Err(); err != nil {
 		return nil, err
 	}
-	pet := &model.Pet{}
+	pet = &model.Pet{}
 
 	data, err := os.ReadFile(r.petPath)
 	if err != nil {
@@ -70,10 +76,14 @@ func (r *PetRepository) GetPet(ctx context.Context) (*model.Pet, error) {
 	return pet, nil
 }
 
-func (r *PetRepository) PutPet(ctx context.Context, pet model.Pet) error {
+// PutPet puts pet to storage
+func (r *PetRepository) PutPet(ctx context.Context, pet model.Pet) (err error) {
 	r.createStorageOnce.Do(func() {
-		r.initFile(r.petPath)
+		err = r.initFile(r.petPath)
 	})
+	if err != nil {
+		return err
+	}
 	if err := ctx.Err(); err != nil {
 		return err
 	}
@@ -85,7 +95,7 @@ func (r *PetRepository) PutPet(ctx context.Context, pet model.Pet) error {
 		return err
 	}
 
-	err = os.WriteFile(r.petPath, data, 0644)
+	err = os.WriteFile(r.petPath, data, 0600)
 	if err != nil {
 		return err
 	}
@@ -96,16 +106,16 @@ func (r *PetRepository) PutPet(ctx context.Context, pet model.Pet) error {
 	return nil
 }
 
-func (r *PetRepository) initFile(filePath string) error {
+func (r *PetRepository) initFile(filePath string) (err error) {
 	if _, err := os.Stat(filePath); err != nil && !os.IsNotExist(err) {
 		return err
-	} else {
-		file, err := os.Create(filePath)
-		if err != nil {
-			return err
-		}
-		defer file.Close()
 	}
+
+	file, err := os.Create(filePath)
+	if err != nil {
+		return err
+	}
+	defer func() { err = file.Close() }()
 
 	return nil
 }

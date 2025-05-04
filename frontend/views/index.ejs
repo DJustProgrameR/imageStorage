@@ -2,40 +2,40 @@
 <html>
 <head>
     <title><%= title %></title>
-    <style>
-        .pet-container {
-            margin: 20px;
-            padding: 20px;
-            border: 1px solid #ddd;
-        }
-        pre {
-            white-space: pre-wrap;
-            font-family: monospace;
-        }
-    </style>
+    <link rel="stylesheet" href="/styles/clear.css" >
+    <link rel="stylesheet" href="/styles/default.css" >
+    <link rel="stylesheet" href="/styles/form_outline.css" >
 </head>
 <body>
-<h1>Сервис питомцев</h1>
 
-<% if (pet) { %>
-    <div class="pet-container">
-        <h2>Current Pet</h2>
-        <pre><%= pet.ascii %></pre>
-        <p><strong>Description:</strong> <%= pet.description %></p>
-    </div>
-<% } %>
+<section class="toWatch">
+    <div class="toWatch__container">
+        <h2 class="toWatch__title">Ваш питомец</h2>
+        <form class="toWatch__form" id="toWatch-form" action="/update-pet" method="POST">
+            <label for="ascii">
+                Ascii изображение:
+                <% if (pet) { %>
+                    <textarea id="ascii" name="ascii" rows="<%= rows %>" cols="<%= cols %>" required><%= pet.ascii %></textarea>
+                <% } else { %>
+                    <textarea id="ascii" name="ascii" rows="10" cols="50" placeholder="Добавьте ASCII изображение" required></textarea>
+                <% }%>
+            </label>
 
-<h2>Update Pet</h2>
-<form action="/update-pet" method="POST">
-    <div>
-        <label for="ascii">ASCII изображение:</label><br>
-        <textarea id="ascii" name="ascii" rows="10" cols="50" required></textarea>
+            <label for="description">
+                Описание:
+                <% if (pet) { %>
+                    <input type="text" id="description" name="description" value="<%= pet.description %>" required>
+                <% } else { %>
+                    <input type="text" id="description" name="description" placeholder="Добавьте описание" required>
+                <% }%>
+            </label>
+
+            <button id="offerToWatchListButton" class="button button--primary toWatch__button"
+                    type="submit">Обновить</button>
+        </form>
     </div>
-    <div>
-        <label for="description">Описание:</label><br>
-        <input type="text" id="description" name="description" required>
-    </div>
-    <button type="submit">Update Pet</button>
-</form>
+
+    <div id="result-container" class="result__container"></div>
+</section>
 </body>
 </html>

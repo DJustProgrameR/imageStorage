@@ -10,6 +10,7 @@ COPY tsconfig.json ./
 RUN npm install
 
 # Copy source code
+COPY public ./public
 COPY src ./src
 COPY views ./views
 COPY main.ts ./

@@ -1,6 +1,7 @@
 import express from 'express';
 import {PetApi, GetPet200Response, Configuration} from './src/client';
 import axios from 'axios';
+import path from "path";
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -24,6 +25,9 @@ const petApi = new PetApi(apiConfig);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 app.get('/', async (req, res) => {
@@ -32,7 +36,14 @@ app.get('/', async (req, res) => {
         const response = await petApi.getPet();
         const pet = response.data;
 
+        const rows = countRows(pet);
+        const cols = countCols(pet);
+
+        console.error(rows);
+        console.error(cols);
         res.render('index', {
+            rows: rows,
+            cols: cols,
             title: 'Сервис питомцев',
             pet: pet
         });
@@ -85,3 +96,28 @@ process.on('SIGINT', () => {
     console.log('SIGINT received. Shutting down gracefully');
     process.exit(0);
 });
+
+function countRows(pet?:  GetPet200Response): number {
+    if(!pet) {
+        return 10
+    }
+    const newlineRegex = /\n/g;
+    const matches = pet.ascii.match(newlineRegex);
+    return matches ? Math.max(10,matches.length+4) : 0;
+}
+
+function countCols(pet?:  GetPet200Response): number {
+    if(!pet) {
+        return 50
+    }
+    let s = pet.ascii;
+    let strings = s.split('\n');
+    let n = strings.length;
+    let maxLength = 0;
+
+    for (let i = 0; i < n; i++) {
+        maxLength = Math.max(maxLength, strings[i].length);
+    }
+
+    return Math.max(50,maxLength*1.5);
+}
