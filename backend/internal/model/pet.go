@@ -1,4 +1,3 @@
-// Package model - domain models
 package model
 
 // Pet model

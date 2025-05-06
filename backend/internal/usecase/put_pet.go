@@ -1,4 +1,3 @@
-// Package usecase это бизнес логика
 package usecase
 
 import (

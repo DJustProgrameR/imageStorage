@@ -1,4 +1,3 @@
-// Package server это конфигурация REST API сервера
 package server
 
 import (
